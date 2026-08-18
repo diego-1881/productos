@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Productos</title>
+<meta name="description" content="Exhibición de artículos usados en excelente estado: muebles, tecnología y objetos para el hogar.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23241C19'/%3E%3Ctext x='50' y='68' font-family='Georgia,serif' font-size='58' fill='%23FFFDF8' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#241C19',
+          cream: '#FFFDF8',
+        }
+      }
+    }
+  }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#241C19;
+    --cream:#FFFDF8;
+  }
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',ui-sans-serif,system-ui,sans-serif; background:var(--cream); color:var(--ink);}
+  .font-display{font-family:'Fraunces',serif; font-optical-sizing:auto;}
+  .line-clamp-2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+  .no-scrollbar::-webkit-scrollbar{display:none;}
+  .no-scrollbar{-ms-overflow-style:none; scrollbar-width:none;}
+  a, button{ -webkit-tap-highlight-color: transparent; }
+  a:focus-visible, button:focus-visible, [tabindex]:focus-visible{
+    outline:2px solid var(--ink); outline-offset:2px; border-radius:4px;
+  }
+  img{ background-color:#efe9e3; }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition-duration:0.001ms !important; animation-duration:0.001ms !important;}
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<header class="sticky top-0 z-40 bg-[var(--cream)]/90 backdrop-blur border-b border-black/[0.06]">
+  <div class="max-w-7xl mx-auto px-6 sm:px-10 lg:px-16 h-20 flex items-center justify-between">
+    <a href="#/" class="font-display italic text-2xl font-semibold tracking-tight">Productos</a>
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-ink/70" id="desktopNav"></nav>
+    <button id="menuBtn" aria-label="Abrir menú" aria-expanded="false" type="button" class="md:hidden -mr-2 w-12 h-12 flex flex-col items-center justify-center gap-1.5 relative z-50">
+      <span id="menuBar1" class="block w-6 h-[1.5px] bg-ink transition-transform duration-200"></span>
+      <span id="menuBar2" class="block w-6 h-[1.5px] bg-ink transition-transform duration-200"></span>
+    </button>
+  </div>
+  <nav id="mobileNav" class="md:hidden hidden flex-col gap-1 px-6 pb-6 text-sm font-medium text-ink/80 w-full bg-[var(--cream)]"></nav>
+</header>
+
+<main id="app"></main>
+
+<script>
+const PRODUCTS = [{"slug": "sofa-cama", "categoria": "sala-comedor", "categoria_nombre": "Sala y Comedor", "nombre": "Sofa Cama", "marca": "Pullman", "estado": {"score": 9.5, "max": 10.0}, "estado_raw": "9.5 - 10", "descripcion": "MULTIFUNCIONAL EURO | SERIE 2 CON BRAZOS | 2 PUESTOS", "detalles": null, "precio_compra": 1295190.0, "precio_venta": 900000.0, "entrega": "1 al 8 de abril, 2027", "disponible_inmediato": false, "imagenes": ["assets/img/sala-comedor/sofa-cama/01.jpg", "assets/img/sala-comedor/sofa-cama/02.jpg", "assets/img/sala-comedor/sofa-cama/03.jpg", "assets/img/sala-comedor/sofa-cama/04.jpg", "assets/img/sala-comedor/sofa-cama/05.jpg", "assets/img/sala-comedor/sofa-cama/06.jpg", "assets/img/sala-comedor/sofa-cama/07.jpg"]}, {"slug": "tv", "categoria": "sala-comedor", "categoria_nombre": "Sala y Comedor", "nombre": "Televisor", "marca": "LG", "estado": {"score": 9.5, "max": 10.0}, "estado_raw": "9.5 - 10", "descripcion": "NanoCell 65” 4K Smart TV", "detalles": null, "precio_compra": 2930000.0, "precio_venta": 2200000.0, "entrega": "1 al 8 de abril, 2027", "disponible_inmediato": false, "imagenes": ["assets/img/sala-comedor/tv/01.jpg", "assets/img/sala-comedor/tv/02.jpg", "assets/img/sala-comedor/tv/03.jpg", "assets/img/sala-comedor/tv/04.jpg"]}, {"slug": "mesa-de-tv", "categoria": "sala-comedor", "categoria_nombre": "Sala y Comedor", "nombre": "Mesa de television", "marca": "ANJU", "estado": {"score": 8.0, "max": 10.0}, "estado_raw": "8 - 10", "descripcion": "Diseño escandinavo (180X40X50", "detalles": "Tiene pequeñas peladuras en algunos bordes", "precio_compra": 1182600.0, "precio_venta": 750000.0, "entrega": "1 al 8 de abril, 2027", "disponible_inmediato": false, "imagenes": ["assets/img/sala-comedor/mesa-de-tv/01.jpg", "assets/img/sala-comedor/mesa-de-tv/02.jpg", "assets/img/sala-comedor/mesa-de-tv/03.jpg"]}, {"slug": "sofa-en-l", "categoria": "sala-comedor", "categoria_nombre": "Sala y Comedor", "nombre": "Sofa en L", "marca": "Pullman", "estado": {"score": 9.0, "max": 10.0}, "estado_raw": "9 - 10", "descripcion": "ALONDRA | SERIE 2 | MODULO | NEGRO", "detalles": null, "precio_compra": 1133191.0, "precio_venta": 850000.0, "entrega": null, "disponible_inmediato": true, "imagenes": ["assets/img/sala-comedor/sofa-en-l/01.jpg", "assets/img/sala-comedor/sofa-en-l/02.jpg", "assets/img/sala-comedor/sofa-en-l/03.jpg", "assets/img/sala-comedor/sofa-en-l/04.jpg", "assets/img/sala-comedor/sofa-en-l/05.jpg", "assets/img/sala-comedor/sofa-en-l/06.jpg"]}, {"slug": "mesas-de-centro", "categoria": "sala-comedor", "categoria_nombre": "Sala y Comedor", "nombre": "Mesas de centro", "marca": "La Carpinteria", "estado": {"score": 7.5, "max": 10.0}, "estado_raw": "7.5 - 10", "descripcion": "Mesa doble de grafito", "detalles": "Tiene ligeros desperfectos de uso.", "precio_compra": 760000.0, "precio_venta": 500000.0, "entrega": null, "disponible_inmediato": true, "imagenes": ["assets/img/sala-comedor/mesas-de-centro/01.jpg", "assets/img/sala-comedor/mesas-de-centro/02.jpeg", "assets/img/sala-comedor/mesas-de-centro/03.jpeg"]}, {"slug": "comedor", "categoria": "sala-comedor", "categoria_nombre": "Sala y Comedor", "nombre": "Comedor", "marca": "La Carpinteria", "estado": {"score": 7.5, "max": 10.0}, "estado_raw": "7.5 - 10", "descripcion": "Nordico roble 1.60x90", "detalles": "Tiene desperfectos de uso cotidiano.", "precio_compra": 1309000.0, "precio_venta": 750000.0, "entrega": "1 al 8 de abril, 2027", "disponible_inmediato": false, "imagenes": ["assets/img/sala-comedor/comedor/01.jpg", "assets/img/sala-comedor/comedor/02.jpg", "assets/img/sala-comedor/comedor/03.jpeg", "assets/img/sala-comedor/comedor/04.jpeg", "assets/img/sala-comedor/comedor/05.jpeg", "assets/img/sala-comedor/comedor/06.jpeg"]}, {"slug": "sillas-de-comedor", "categoria": "sala-comedor", "categoria_nombre": "Sala y Comedor", "nombre": "Sillas de Comedor", "marca": "Compumuebles", "estado": {"score": 7.5, "max": 10.0}, "estado_raw": "7.5 - 10", "descripcion": "SILLA ALLEN NEGRA. 4 unidades", "detalles": null, "precio_compra": 872099.93, "precio_venta": 500000.0, "entrega": "1 al 8 de abril, 2027", "disponible_inmediato": false, "imagenes": ["assets/img/sala-comedor/sillas-de-comedor/01.webp", "assets/img/sala-comedor/sillas-de-comedor/02.webp", "assets/img/sala-comedor/sillas-de-comedor/03.webp", "assets/img/sala-comedor/sillas-de-comedor/04.jpeg"]}, {"slug": "mesa-escritorio", "categoria": "oficina", "categoria_nombre": "Oficina", "nombre": "Escritorio", "marca": "La Carpinteria", "estado": {"score": 9.5, "max": 10.0}, "estado_raw": "9.5 - 10", "descripcion": "Escritorio simon 1.50x65", "detalles": null, "precio_compra": 1130500.0, "precio_venta": 950000.0, "entrega": "1 al 8 de abril, 2027", "disponible_inmediato": false, "imagenes": ["assets/img/oficina/mesa-escritorio/01.jpg", "assets/img/oficina/mesa-escritorio/02.jpg", "assets/img/oficina/mesa-escritorio/03.jpg", "assets/img/oficina/mesa-escritorio/04.jpg", "assets/img/oficina/mesa-escritorio/05.jpg"]}, {"slug": "silla-presidente", "categoria": "oficina", "categoria_nombre": "Oficina", "nombre": "Silla", "marca": "ekonomodo", "estado": {"score": 9.5, "max": 10.0}, "estado_raw": "9.5 - 10", "descripcion": "SILLA NUVOA PRESIDENTE NEGRO", "detalles": null, "precio_compra": 1637908.86, "precio_venta": 1250000.0, "entrega": "1 al 8 de abril, 2027", "disponible_inmediato": false, "imagenes": ["assets/img/oficina/silla-presidente/01.webp", "assets/img/oficina/silla-presidente/02.webp", "assets/img/oficina/silla-presidente/03.webp", "assets/img/oficina/silla-presidente/04.jpg", "assets/img/oficina/silla-presidente/05.jpg", "assets/img/oficina/silla-presidente/06.jpg"]}, {"slug": "bafles", "categoria": "oficina", "categoria_nombre": "Oficina", "nombre": "Bafles de estudio", "marca": "KRK", "estado": {"score": 9.5, "max": 10.0}, "estado_raw": "9.5 - 10", "descripcion": "KRK RP5 Rokit G4 Monitor de estudio, negro (RP5G4-NA). 2 Unidades", "detalles": null, "precio_compra": 1748344.0, "precio_venta": 1350000.0, "entrega": null, "disponible_inmediato": true, "imagenes": ["assets/img/oficina/bafles/01.jpg", "assets/img/oficina/bafles/02.jpg", "assets/img/oficina/bafles/03.jpg"]}, {"slug": "interfaz-de-audio", "categoria": "oficina", "categoria_nombre": "Oficina", "nombre": "Interfaz De Audio", "marca": "Focusrite", "estado": {"score": 8.0, "max": 10.0}, "estado_raw": "8 - 10", "descripcion": "Focusrite Scarlett Solo 3ra Gen Usb 24bit1", "detalles": null, "precio_compra": 530843.0, "precio_venta": 350000.0, "entrega": null, "disponible_inmediato": true, "imagenes": ["assets/img/oficina/interfaz-de-audio/01.jpg", "assets/img/oficina/interfaz-de-audio/02.jpeg"]}, {"slug": "guitarra-electrica", "categoria": "oficina", "categoria_nombre": "Oficina", "nombre": "Guitarra Eléctrica", "marca": "EPIPHONE", "estado": {"score": 9.0, "max": 10.0}, "estado_raw": "9 - 10", "descripcion": "EPIPHONE LES PAUL STUDIO", "detalles": "Se incluye soporte", "precio_compra": 1230000.0, "precio_venta": 950000.0, "entrega": null, "disponible_inmediato": true, "imagenes": ["assets/img/oficina/guitarra-electrica/01.jpg", "assets/img/oficina/guitarra-electrica/02.jpg", "assets/img/oficina/guitarra-electrica/03.jpg", "assets/img/oficina/guitarra-electrica/04.jpg", "assets/img/oficina/guitarra-electrica/05.jpg", "assets/img/oficina/guitarra-electrica/06.jpg"]}, {"slug": "guitarra-acustica", "categoria": "oficina", "categoria_nombre": "Oficina", "nombre": "Guitarra Acústica", "marca": "La Santandereana", "estado": {"score": 8.0, "max": 10.0}, "estado_raw": "8 - 10", "descripcion": "Acustica de color negro", "detalles": "Se incluye soporte", "precio_compra": 360000.0, "precio_venta": 220000.0, "entrega": null, "disponible_inmediato": true, "imagenes": ["assets/img/oficina/guitarra-acustica/01.jpg", "assets/img/oficina/guitarra-acustica/02.jpeg", "assets/img/oficina/guitarra-acustica/03.jpeg", "assets/img/oficina/guitarra-acustica/04.jpeg"]}, {"slug": "mesa-de-noche", "categoria": "habitaciones", "categoria_nombre": "Habitaciones", "nombre": "Mesas de noche", "marca": "La Carpinteria", "estado": {"score": 9.5, "max": 10.0}, "estado_raw": "9.5 - 10", "descripcion": "Mesa de noche Duo roble", "detalles": "Se vende el par", "precio_compra": 1666000.0, "precio_venta": 1200000.0, "entrega": null, "disponible_inmediato": true, "imagenes": ["assets/img/habitaciones/mesa-de-noche/01.jpg", "assets/img/habitaciones/mesa-de-noche/02.jpg", "assets/img/habitaciones/mesa-de-noche/03.jpg"]}, {"slug": "ventilador-torre", "categoria": "habitaciones", "categoria_nombre": "Habitaciones", "nombre": "Ventilador de torre", "marca": "KALLEY", "estado": {"score": 9.5, "max": 10.0}, "estado_raw": "9.5 - 10", "descripcion": "Ventilador de Torre KALLEY Negro. 2 unidades.", "detalles": null, "precio_compra": "$ 339.900 (Precio por unidad)", "precio_venta": 200000.0, "entrega": "1 al 8 de abril, 2027", "disponible_inmediato": false, "imagenes": ["assets/img/habitaciones/ventilador-torre/01.avif", "assets/img/habitaciones/ventilador-torre/02.avif", "assets/img/habitaciones/ventilador-torre/03.avif", "assets/img/habitaciones/ventilador-torre/04.jpg"]}, {"slug": "nevera", "categoria": "cocina", "categoria_nombre": "Cocina", "nombre": "Nevera", "marca": "Samsung", "estado": {"score": 9.5, "max": 10.0}, "estado_raw": "9.5 - 10", "descripcion": "Nevera No Frost 458 Litros Inverter", "detalles": null, "precio_compra": 3699900.0, "precio_venta": 2600000.0, "entrega": "1 al 8 de abril, 2027", "disponible_inmediato": false, "imagenes": ["assets/img/cocina/nevera/01.jpeg", "assets/img/cocina/nevera/02.jpeg", "assets/img/cocina/nevera/03.jpeg", "assets/img/cocina/nevera/04.jpeg", "assets/img/cocina/nevera/05.jpeg", "assets/img/cocina/nevera/06.jpeg", "assets/img/cocina/nevera/07.jpeg", "assets/img/cocina/nevera/08.jpeg"]}, {"slug": "lavadora", "categoria": "cocina", "categoria_nombre": "Cocina", "nombre": "Lavadora", "marca": "Samsung", "estado": {"score": 9.0, "max": 10.0}, "estado_raw": "9 - 10", "descripcion": "Lavadora Secadora con QuickDrive, 12.5Kg", "detalles": null, "precio_compra": 2609705.0, "precio_venta": 1900000.0, "entrega": "1 al 8 de abril, 2027", "disponible_inmediato": false, "imagenes": ["assets/img/cocina/lavadora/01.avif", "assets/img/cocina/lavadora/02.avif", "assets/img/cocina/lavadora/03.avif", "assets/img/cocina/lavadora/04.avif", "assets/img/cocina/lavadora/05.avif", "assets/img/cocina/lavadora/06.jpg", "assets/img/cocina/lavadora/07.jpg", "assets/img/cocina/lavadora/08.jpg", "assets/img/cocina/lavadora/09.jpg"]}, {"slug": "microondas", "categoria": "cocina", "categoria_nombre": "Cocina", "nombre": "Microondas", "marca": "Samsung", "estado": {"score": 6.5, "max": 10.0}, "estado_raw": "6.5 - 10", "descripcion": "Microondas Negro Capacidad: 0.8 ft3/ 23 L", "detalles": null, "precio_compra": 332689.0, "precio_venta": 180000.0, "entrega": "1 al 8 de abril, 2027", "disponible_inmediato": false, "imagenes": ["assets/img/cocina/microondas/01.jpeg", "assets/img/cocina/microondas/02.jpeg", "assets/img/cocina/microondas/03.jpeg", "assets/img/cocina/microondas/04.jpg"]}, {"slug": "licuadora", "categoria": "cocina", "categoria_nombre": "Cocina", "nombre": "Licuadora", "marca": "Oster", "estado": {"score": 7.0, "max": 10.0}, "estado_raw": "7 - 10", "descripcion": "Licuadora 10 Velocidades Vaso de Vidrio", "detalles": null, "precio_compra": 169000.0, "precio_venta": 100000.0, "entrega": "1 al 8 de abril, 2027", "disponible_inmediato": false, "imagenes": ["assets/img/cocina/licuadora/01.jpg", "assets/img/cocina/licuadora/02.jpg", "assets/img/cocina/licuadora/03.jpg"]}, {"slug": "air-fryer", "categoria": "cocina", "categoria_nombre": "Cocina", "nombre": "Freidora de aire", "marca": "Ninja", "estado": {"score": 7.0, "max": 10.0}, "estado_raw": "7 - 10", "descripcion": "Freidora de aire Ninja 3.7 lt 1550W", "detalles": null, "precio_compra": 384800.0, "precio_venta": 210000.0, "entrega": "1 al 8 de abril, 2027", "disponible_inmediato": false, "imagenes": ["assets/img/cocina/air-fryer/01.jpeg", "assets/img/cocina/air-fryer/02.jpeg", "assets/img/cocina/air-fryer/03.jpeg", "assets/img/cocina/air-fryer/04.jpeg", "assets/img/cocina/air-fryer/05.jpg"]}, {"slug": "tetera-electrica", "categoria": "cocina", "categoria_nombre": "Cocina", "nombre": "Tetera eléctrica", "marca": "Elite Gourmet", "estado": {"score": 9.0, "max": 10.0}, "estado_raw": "9 - 10", "descripcion": "Tetera eléctrica de té de doble pared de 1.7L con tacto frío, vidrio de borosilicato, interior de acero inoxidable 304, pantalla táctil digital programada, mantener caliente", "detalles": null, "precio_compra": 140917.0, "precio_venta": 90000.0, "entrega": "1 al 8 de abril, 2027", "disponible_inmediato": false, "imagenes": ["assets/img/cocina/tetera-electrica/01.jpg", "assets/img/cocina/tetera-electrica/02.jpg", "assets/img/cocina/tetera-electrica/03.jpg", "assets/img/cocina/tetera-electrica/04.jpg", "assets/img/cocina/tetera-electrica/05.jpg", "assets/img/cocina/tetera-electrica/06.jpg", "assets/img/cocina/tetera-electrica/07.jpg", "assets/img/cocina/tetera-electrica/08.jpeg"]}, {"slug": "lampara-colgante-shelby", "categoria": "lamparas", "categoria_nombre": "Lámparas", "nombre": "Lampara Colgante", "marca": "Fokuss", "estado": {"score": 9.5, "max": 10.0}, "estado_raw": "9.5 - 10", "descripcion": "CO1 SHELBY NEGRA. Lámpara colgante atemporal, con formas simples e industriales en color negro interior blanco, pintura electrostatica Ideal para descolgar en barras de cocina, comedores, salas, corredores o habitaciones amplias. Incluye bombillo de rosca E27 en tonalidad de luz calida 3.000 k y un plafón con cable graduable de 2 mts.", "detalles": null, "precio_compra": 508300.0, "precio_venta": 380000.0, "entrega": null, "disponible_inmediato": true, "imagenes": ["assets/img/lamparas/lampara-colgante-shelby/01.jpg", "assets/img/lamparas/lampara-colgante-shelby/02.jpg"]}, {"slug": "lampara-de-mesa-ventura-negra", "categoria": "lamparas", "categoria_nombre": "Lámparas", "nombre": "Lámpara de mesa", "marca": "Fokuss", "estado": {"score": 9.5, "max": 10.0}, "estado_raw": "9.5 - 10", "descripcion": "MS1 VENTURA NEGRA. Lámpara de mesa atemporal, color negro. Ideal para escritorios, salas o habitaciones. El bombillo es led de luz fría. Incluye switch de encendido aéreo en Cable.", "detalles": null, "precio_compra": 372400.0, "precio_venta": 270000.0, "entrega": null, "disponible_inmediato": true, "imagenes": ["assets/img/lamparas/lampara-de-mesa-ventura-negra/01.webp", "assets/img/lamparas/lampara-de-mesa-ventura-negra/02.jpg", "assets/img/lamparas/lampara-de-mesa-ventura-negra/03.jpg"]}, {"slug": "spot-3-luces", "categoria": "lamparas", "categoria_nombre": "Lámparas", "nombre": "Lámpara spot 3 luces", "marca": "Fokuss", "estado": {"score": 9.5, "max": 10.0}, "estado_raw": "9.5 - 10", "descripcion": "3 lámparas spot moderna de sobreponer en techo o pared con difusor metálico de luz direccionable. Es recomendable para cocinas, corredores, salas o habitaciones es una lámpara decorativa especialmente para dirigir la luz, Incluye plafón y bombillo LED par 30 en Luz calida o fria.", "detalles": "Disponibles 2 lamparas de luz cálida y 1 de luz fría.", "precio_compra": "$ 630.000 (Precio por unidad)", "precio_venta": "$520.000 (Precio por unidad)", "entrega": null, "disponible_inmediato": true, "imagenes": ["assets/img/lamparas/spot-3-luces/01.webp", "assets/img/lamparas/spot-3-luces/02.jpg", "assets/img/lamparas/spot-3-luces/03.jpg", "assets/img/lamparas/spot-3-luces/04.jpg", "assets/img/lamparas/spot-3-luces/05.jpg"]}, {"slug": "lampara-de-mesa-fiori", "categoria": "lamparas", "categoria_nombre": "Lámparas", "nombre": "Lámpara de mesa", "marca": "Fokuss", "estado": {"score": 9.5, "max": 10.0}, "estado_raw": "9.5 - 10", "descripcion": "MS1 FIORI NIKEL. Lámpara de mesa atemporal con acabado en metal y color cobre es ideal para salas o habitaciones. El vidrio es elaborado por medio de procesos artesanales, por lo tanto pueden presentar burbujas e imperfecciones que le dan ese toque único y artesanal. El bombillo es de filamento led de luz cálida para darle calidez a cada espacio. Incluye switch de encendido aéreo en Cable.", "detalles": "Disponibles 2 lámparas de luz cálida.", "precio_compra": "$ 346.000 (Precio por unidad)", "precio_venta": 260000.0, "entrega": null, "disponible_inmediato": true, "imagenes": ["assets/img/lamparas/lampara-de-mesa-fiori/01.webp", "assets/img/lamparas/lampara-de-mesa-fiori/02.webp", "assets/img/lamparas/lampara-de-mesa-fiori/03.webp", "assets/img/lamparas/lampara-de-mesa-fiori/04.jpg"]}, {"slug": "lampara-colgante-bow", "categoria": "lamparas", "categoria_nombre": "Lámparas", "nombre": "Lámpara colgante", "marca": "Fokuss", "estado": {"score": 9.5, "max": 10.0}, "estado_raw": "9.5 - 10", "descripcion": "CO1 BOWW NIKEL. Lámpara colgante atemporal, con difusor de vidrio transparente, formas simples . Ideal para descolgar en comedores, salas, o habitaciones. Incluye bombillo y un plafón con cable graduable de 2 mts.", "detalles": null, "precio_compra": 460000.0, "precio_venta": 340000.0, "entrega": null, "disponible_inmediato": true, "imagenes": ["assets/img/lamparas/lampara-colgante-bow/01.jpg", "assets/img/lamparas/lampara-colgante-bow/02.jpg", "assets/img/lamparas/lampara-colgante-bow/03.jpg", "assets/img/lamparas/lampara-colgante-bow/04.jpg"]}, {"slug": "spot-2-luces", "categoria": "lamparas", "categoria_nombre": "Lámparas", "nombre": "Lámpara spot 2 luces", "marca": "Fokuss", "estado": {"score": 9.5, "max": 10.0}, "estado_raw": "9.5 - 10", "descripcion": "Lámpara spot moderna de sobreponer en techo o pared con difusor metálico de luz direccionable. Es recomendable para cocinas, corredores, salas o habitaciones es una lámpara decorativa especialmente para dirigir la luz, Incluye plafón y bombillo LED par 30 en Luz fría.", "detalles": null, "precio_compra": 440000.0, "precio_venta": 330000.0, "entrega": null, "disponible_inmediato": true, "imagenes": ["assets/img/lamparas/spot-2-luces/01.jpg", "assets/img/lamparas/spot-2-luces/02.jpg", "assets/img/lamparas/spot-2-luces/03.webp", "assets/img/lamparas/spot-2-luces/04.jpg"]}];
+const CATEGORIES = [{"slug": "sala-comedor", "nombre": "Sala y Comedor", "color": "rgb(255,232,186)", "light": false, "tagline": "Para compartir momentos en casa"}, {"slug": "oficina", "nombre": "Oficina", "color": "rgb(230,216,249)", "light": false, "tagline": "Espacios listos para crear y trabajar"}, {"slug": "habitaciones", "nombre": "Habitaciones", "color": "rgb(234,230,225)", "light": false, "tagline": "Calidez y descanso para tu cuarto"}, {"slug": "cocina", "nombre": "Cocina", "color": "rgb(167,77,74)", "light": true, "tagline": "Equipos funcionales para el día a día"}, {"slug": "lamparas", "nombre": "Lámparas", "color": "rgb(225,204,190)", "light": false, "tagline": "Luz con estilo para cada rincón"}];
+
+function escHtml(s){ if(s===null||s===undefined) return ''; return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escAttr(s){ return escHtml(s).replace(/"/g,'&quot;'); }
+function catBy(slug){ return CATEGORIES.find(c=>c.slug===slug); }
+function money(v){
+  if (typeof v === 'number') return '$' + v.toLocaleString('es-CO', {maximumFractionDigits:0});
+  return escHtml(v);
+}
+function roundedCompra(v){
+  if (typeof v === 'number') return Math.round(v / 10000) * 10000;
+  return v;
+}
+function discountPct(compra, venta){
+  if (typeof compra === 'number' && typeof venta === 'number' && compra > venta) {
+    return Math.round((1 - venta/compra) * 100);
+  }
+  return null;
+}
+function estadoLabel(score){
+  if (score >= 9.5) return 'Excelente estado';
+  if (score >= 8.5) return 'Muy buen estado';
+  if (score >= 7) return 'Buen estado';
+  return 'Estado funcional';
+}
+
+function fitOrientation(img, container){
+  const run = () => {
+    if (!img.naturalWidth || !img.naturalHeight) return;
+    if (img.naturalWidth > img.naturalHeight) {
+      container.style.aspectRatio = img.naturalWidth + ' / ' + img.naturalHeight;
+      img.style.objectFit = 'contain';
+      img.style.backgroundColor = 'var(--cream)';
+    } else {
+      container.style.aspectRatio = '';
+      img.style.objectFit = '';
+      img.style.backgroundColor = '';
+    }
+  };
+  if (img.complete) run();
+  img.addEventListener('load', run);
+}
+
+function fitAllIn(root){
+  root.querySelectorAll('.img-wrap').forEach(wrap => {
+    const img = wrap.querySelector('img.fit-img');
+    if(img) fitOrientation(img, wrap);
+  });
+}
+
+function buildNav(){
+  const links = CATEGORIES.map(c => `<a href="#cat-${c.slug}" class="hover:text-ink transition">${escHtml(c.nombre)}</a>`).join('');
+  document.getElementById('desktopNav').innerHTML = links;
+  document.getElementById('mobileNav').innerHTML = CATEGORIES.map(c => `<a href="#cat-${c.slug}" class="block py-3 border-b border-black/5">${escHtml(c.nombre)}</a>`).join('');
+}
+
+function conditionSeal(estado, size){
+  if(!estado) return '';
+  const dims = size === 'lg' ? 'w-14 h-14' : 'w-12 h-12';
+  return `<div class="${dims} rounded-full bg-white/95 shadow-md border border-black/5 flex flex-col items-center justify-center -rotate-6 flex-shrink-0">
+    <span class="font-display font-bold leading-none text-[13px]">${estado.score}</span>
+    <span class="text-[6px] uppercase tracking-wide text-ink/45 leading-none mt-0.5">de ${estado.max}</span>
+  </div>`;
+}
+
+function productCard(p, opts){
+  opts = opts || {};
+  const cover = p.imagenes[0] || '';
+  return `
+  <a href="#p/${p.categoria}/${p.slug}" class="group block bg-white rounded-[24px] shadow-sm hover:shadow-xl transition-shadow duration-300 overflow-hidden${opts.small ? ' w-full sm:w-60 flex-shrink-0' : ' mb-6 break-inside-avoid'}">
+    <div class="relative img-wrap overflow-hidden" style="aspect-ratio:4/5">
+      <img src="${cover}" loading="lazy" class="fit-img w-full h-full object-cover rounded-t-[20px] transition-transform duration-500 group-hover:scale-105" alt="${escAttr(p.nombre)}">
+      <div class="absolute top-3 left-3">${conditionSeal(p.estado)}</div>
+    </div>
+    <div class="p-5">
+      <p class="text-[11px] uppercase tracking-wider text-ink/40 font-medium">${escHtml(p.marca)}</p>
+      <h3 class="font-display text-lg font-semibold mt-1 leading-snug">${escHtml(p.nombre)}</h3>
+      <p class="text-sm uppercase tracking-wide text-ink/55 mt-1 line-clamp-2">${escHtml(p.descripcion)}</p>
+    </div>
+  </a>`;
+}
+
+function renderHome(){
+  let html = '';
+
+  CATEGORIES.forEach(cat => {
+    const items = PRODUCTS.filter(p => p.categoria === cat.slug);
+    if(!items.length) return;
+    const textMain = cat.light ? 'text-white' : 'text-ink';
+    const textSub = cat.light ? 'text-white/75' : 'text-ink/55';
+    html += `
+    <section id="cat-${cat.slug}" class="px-6 sm:px-10 lg:px-16 py-12 sm:py-16 lg:py-20 scroll-mt-20" style="background:${cat.color}">
+      <div class="max-w-7xl mx-auto">
+        <div class="mb-10">
+          <h2 class="font-display text-3xl sm:text-4xl font-semibold ${textMain}">${escHtml(cat.nombre)}</h2>
+          <p class="mt-2 ${textSub}">${escHtml(cat.tagline)}</p>
+        </div>
+        <div class="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6">
+          ${items.map(p => productCard(p)).join('')}
+        </div>
+      </div>
+    </section>`;
+  });
+
+  document.getElementById('app').innerHTML = html;
+  fitAllIn(document.getElementById('app'));
+  CURRENT_GALLERY = [];
+  setMainIdx = null;
+}
+let CURRENT_GALLERY = [];
+let CURRENT_IDX = 0;
+let setMainIdx = null;
+
+function renderProduct(catSlug, slug){
+  const p = PRODUCTS.find(x => x.categoria === catSlug && x.slug === slug);
+  if(!p){
+    document.getElementById('app').innerHTML = '<div class="px-6 py-24 text-center max-w-xl mx-auto"><p class="font-display text-2xl mb-4">Producto no encontrado</p><a href="#/" class="underline">Volver al catálogo</a></div>';
+    return;
+  }
+  const cat = catBy(p.categoria);
+  const related = PRODUCTS.filter(x => x.categoria === p.categoria && x.slug !== p.slug);
+  const badgeText = cat.light ? '#fff' : 'var(--ink)';
+
+  const html = `
+  <section class="px-6 sm:px-10 lg:px-16 pt-8 pb-20 max-w-7xl mx-auto">
+    <nav class="text-sm text-ink/45 mb-8 flex items-center gap-2 flex-wrap" aria-label="Breadcrumb">
+      <a href="#/" class="hover:text-ink transition">Inicio</a>
+      <span>/</span>
+      <a href="#cat-${cat.slug}" class="hover:text-ink transition">${escHtml(cat.nombre)}</a>
+      <span>/</span>
+      <span class="text-ink">${escHtml(p.nombre)}</span>
+    </nav>
+
+    <div class="grid lg:grid-cols-2 gap-10 lg:gap-16">
+      <div>
+        <div id="mainImgWrap" class="relative img-wrap rounded-[20px] overflow-hidden bg-neutral-100" style="aspect-ratio:4/5">
+          <img id="mainImg" src="${p.imagenes[0] || ''}" class="fit-img w-full h-full object-cover rounded-[20px]" alt="${escAttr(p.nombre)}">
+          ${p.imagenes.length > 1 ? `
+          <button id="mainPrev" aria-label="Foto anterior" class="absolute left-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white shadow-md flex items-center justify-center text-xl">&#8249;</button>
+          <button id="mainNext" aria-label="Foto siguiente" class="absolute right-3 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white/90 hover:bg-white shadow-md flex items-center justify-center text-xl">&#8250;</button>` : ''}
+        </div>
+        ${p.imagenes.length > 1 ? `<div class="flex flex-wrap gap-3 mt-4">
+          ${p.imagenes.map((img, i) => `<button data-idx="${i}" class="thumb flex-shrink-0 w-20 h-20 rounded-[20px] overflow-hidden border-2 ${i === 0 ? 'border-[var(--ink)]' : 'border-transparent'} transition-colors">
+            <img src="${img}" class="w-full h-full object-cover rounded-[17px]" alt="${escAttr(p.nombre)} ${i+1}">
+          </button>`).join('')}
+        </div>` : ''}
+      </div>
+
+      <div class="lg:sticky lg:top-28 lg:self-start">
+        <a href="#cat-${cat.slug}" class="inline-block text-[11px] uppercase tracking-wider font-semibold px-3 py-1.5 rounded-full mb-4" style="background:${cat.color}; color:${badgeText}">${escHtml(cat.nombre)}</a>
+        <h1 class="font-display text-3xl sm:text-4xl font-semibold leading-tight">${escHtml(p.nombre)}</h1>
+        <p class="text-sm uppercase tracking-wide text-ink/45 mt-2">${escHtml(p.marca)}</p>
+
+        ${p.estado ? `<div class="flex items-center gap-3 mt-5">
+          ${conditionSeal(p.estado, 'lg')}
+          <div>
+            <p class="text-sm font-medium">${estadoLabel(p.estado.score)}</p>
+            <p class="text-xs text-ink/45">Estado ${p.estado.score}/${p.estado.max}</p>
+          </div>
+        </div>` : ''}
+
+        <div class="mt-6">
+          <span class="font-display text-3xl sm:text-4xl font-semibold">${money(p.precio_venta)}</span>
+          ${p.precio_compra != null ? `<p class="mt-1.5 text-sm text-ink/50">Precio de compra: <span class="font-semibold text-ink/70">${money(roundedCompra(p.precio_compra))}</span></p>` : ''}
+        </div>
+
+        <p class="mt-6 uppercase tracking-wide text-ink/75 leading-relaxed">${escHtml(p.descripcion)}</p>
+
+        ${p.detalles ? `<div class="mt-5 flex gap-3 p-4 rounded-2xl bg-black/[0.035] border border-black/10">
+          <span class="text-base leading-none mt-0.5">&#9670;</span>
+          <div>
+            <p class="text-xs uppercase tracking-wide font-semibold text-ink/50 mb-1">Detalles adicionales</p>
+            <p class="text-sm text-ink/70 leading-relaxed">${escHtml(p.detalles)}</p>
+          </div>
+        </div>` : ''}
+
+        <div class="mt-5 flex items-center gap-2 text-sm text-ink/60">
+          <span aria-hidden="true">&#128197;</span>
+          <span>${p.disponible_inmediato ? 'Disponibilidad inmediata' : 'Reserva para ' + escHtml(p.entrega)}</span>
+        </div>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#/" class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium border border-black/15 hover:bg-black/5 transition">&#8592; Volver al catálogo</a>
+        </div>
+      </div>
+    </div>
+
+    ${related.length ? `<div class="mt-20">
+      <h2 class="font-display text-2xl font-semibold mb-6">También en ${escHtml(cat.nombre)}</h2>
+      <div class="flex flex-wrap gap-5">
+        ${related.map(r => productCard(r, {small:true})).join('')}
+      </div>
+    </div>` : ''}
+
+    <div class="mt-12 flex justify-center">
+      <a href="#/" class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-medium border border-black/15 hover:bg-black/5 transition">&#8592; Volver al catálogo</a>
+    </div>
+  </section>`;
+
+  document.getElementById('app').innerHTML = html;
+  window.scrollTo(0,0);
+
+  CURRENT_GALLERY = p.imagenes;
+  CURRENT_IDX = 0;
+
+  const mainImg = document.getElementById('mainImg');
+  const mainImgWrap = document.getElementById('mainImgWrap');
+  fitOrientation(mainImg, mainImgWrap);
+  fitAllIn(document.getElementById('app'));
+
+  setMainIdx = (idx) => {
+    CURRENT_IDX = ((idx % CURRENT_GALLERY.length) + CURRENT_GALLERY.length) % CURRENT_GALLERY.length;
+    mainImg.src = CURRENT_GALLERY[CURRENT_IDX];
+    fitOrientation(mainImg, mainImgWrap);
+    document.querySelectorAll('.thumb').forEach((b, i) => {
+      b.classList.toggle('border-[var(--ink)]', i === CURRENT_IDX);
+      b.classList.toggle('border-transparent', i !== CURRENT_IDX);
+    });
+  };
+
+  document.querySelectorAll('.thumb').forEach(btn => {
+    btn.addEventListener('click', () => setMainIdx(+btn.dataset.idx));
+  });
+  const prevBtn = document.getElementById('mainPrev');
+  const nextBtn = document.getElementById('mainNext');
+  if(prevBtn) prevBtn.addEventListener('click', () => setMainIdx(CURRENT_IDX - 1));
+  if(nextBtn) nextBtn.addEventListener('click', () => setMainIdx(CURRENT_IDX + 1));
+}
+
+document.addEventListener('keydown', (e) => {
+  if(!setMainIdx || CURRENT_GALLERY.length < 2) return;
+  if(e.key === 'ArrowRight') setMainIdx(CURRENT_IDX + 1);
+  if(e.key === 'ArrowLeft') setMainIdx(CURRENT_IDX - 1);
+});
+
+const menuBtn = document.getElementById('menuBtn');
+const mobileNav = document.getElementById('mobileNav');
+const menuBar1 = document.getElementById('menuBar1');
+const menuBar2 = document.getElementById('menuBar2');
+
+function setMenuOpen(open){
+  mobileNav.classList.toggle('hidden', !open);
+  mobileNav.classList.toggle('flex', open);
+  menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  if(menuBar1 && menuBar2){
+    menuBar1.style.transform = open ? 'translateY(3.5px) rotate(45deg)' : '';
+    menuBar2.style.transform = open ? 'translateY(-3.5px) rotate(-45deg)' : '';
+  }
+}
+
+menuBtn.addEventListener('click', () => {
+  const isOpen = !mobileNav.classList.contains('hidden');
+  setMenuOpen(!isOpen);
+});
+
+function closeMobileMenu(){
+  setMenuOpen(false);
+}
+
+function route(){
+  const h = location.hash;
+  if(h.startsWith('#p/')){
+    const parts = h.slice(3).split('/');
+    renderProduct(decodeURIComponent(parts[0]), decodeURIComponent(parts[1]));
+  } else {
+    renderHome();
+    const anchor = (h && h !== '#' && h !== '#/') ? h.slice(1) : null;
+    if(anchor){
+      const scrollToAnchor = () => {
+        const el = document.getElementById(anchor);
+        if(el) el.scrollIntoView({behavior: 'smooth', block: 'start'});
+      };
+      requestAnimationFrame(scrollToAnchor);
+      setTimeout(scrollToAnchor, 350);
+      setTimeout(scrollToAnchor, 900);
+    } else {
+      window.scrollTo(0,0);
+    }
+  }
+  closeMobileMenu();
+}
+
+buildNav();
+window.addEventListener('hashchange', route);
+route();
+</script>
+</body>
+</html>
