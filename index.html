@@ -262,7 +262,11 @@ function renderProduct(catSlug, slug){
   </section>`;
 
   document.getElementById('app').innerHTML = html;
-  window.scrollTo(0,0);
+  const scrollTop = () => window.scrollTo({top: 0, left: 0, behavior: 'instant'});
+  scrollTop();
+  requestAnimationFrame(scrollTop);
+  setTimeout(scrollTop, 50);
+  setTimeout(scrollTop, 300);
 
   CURRENT_GALLERY = p.imagenes;
   CURRENT_IDX = 0;
@@ -338,7 +342,10 @@ function route(){
       setTimeout(scrollToAnchor, 350);
       setTimeout(scrollToAnchor, 900);
     } else {
-      window.scrollTo(0,0);
+      const scrollTop = () => window.scrollTo({top: 0, left: 0, behavior: 'instant'});
+      scrollTop();
+      requestAnimationFrame(scrollTop);
+      setTimeout(scrollTop, 50);
     }
   }
   closeMobileMenu();
